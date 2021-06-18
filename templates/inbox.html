@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inbox</title>
+    <style>
+        .above {
+            z-index: 1;
+
+        }
+        .mask-custom {
+            backdrop-filter: contrast(140%) brightness(100%) saturate(100%) sepia(50%)
+            hue-rotate(0deg) grayscale(0%) invert(0%) blur(0px);
+            mix-blend-mode: lighten;
+            background: rgba(161, 44, 199, 0.31);
+            opacity: 1;
+        }
+        .ts {
+            text-shadow:5px 5px 10px black;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+<div
+        class="bg-image"
+        style="
+    background-image: url('https://cdn2.vectorstock.com/i/1000x1000/86/81/chat-box-vector-3328681.jpg');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+  "
+>
+    <div class="mask mask-custom"></div>
+    <div class="row">
+
+        <div class="col col-xxl-3 p-xxl-5"></div>
+        <div class="col col-xxl-6 text-center p-xxl-5 bg-transparent ts text-dark fw-bolder text fs-3">IN-BOX</div>
+        <div class="col col-xxl-3 p-xxl-5"></div>
+
+
+    </div>
+    <br><br><br>
+    <div class="row g-3">
+
+        <div class="col col-xxl-3 text-light text-center justify-content-center" style="opacity: 0.8">
+            <div class="col-xxl-2"></div>
+            <div class="col-xxl-8 bg-dark text-center justify-content-center" >
+                <br>
+                <div><button id="compose" class="btn btn-outline-secondary align-items-center rounded ">Compose</button></div><br>
+                <div><button id="logout" class="btn btn-outline-secondary align-items-center rounded ">Log-out</button></div>
+                <br>
+            </div>
+        </div>
+        <div class="col col-xxl-6" id="add-content">
+
+
+
+        </div>
+        <div class="col col-xxl-3"></div>
+
+    </div>
+
+    <script>
+
+        var btn = document.getElementById('compose');
+
+        btn.addEventListener('click' , function () {
+
+            window.location = '/{{user}}/compose';
+
+        });
+
+        var btn = document.getElementById('logout');
+
+        btn.addEventListener('click' , function () {
+
+            window.location = '/logout';
+
+        });
+
+
+        window.onload = function () {
+
+            var namespace = '/test';
+            var socket = io(namespace);
+
+            socket.emit('check',{user : '{{user}}'});
+
+            socket.on('validity' , function (msg) {
+
+                var status = msg.status;
+
+                if(status == "notok")
+                {
+                    location.replace("/login");
+                }
+
+            });
+
+            socket.emit('get_msg' ,{user : '{{user}}'});
+
+
+            socket.on('no_msg' , function (msg) {
+
+                var no = msg.no;
+
+                var div = document.createElement('div');
+                div.classList.add('col');
+                div.classList.add('col-xxl-12');
+                div.classList.add('rounded');
+                div.classList.add('shadow');
+                div.classList.add('text-center');
+                div.innerHTML = "Your in-box is empty!!!";
+
+                document.getElementById('add-content').appendChild(div);
+
+            });
+
+            socket.on('send_inbox' , function (msg) {
+
+                var from = msg.from;
+                var time = msg.time;
+                var messagee = msg.msg;
+                messagee = messagee.substr(2,messagee.length-3);
+
+                var div = document.createElement('div');
+                div.classList.add('col');
+                div.classList.add('col-xxl-12');
+                div.classList.add('text-light');
+                div.classList.add('bg-dark');
+                div.classList.add('rounded');
+                div.classList.add('shadow');
+                div.classList.add('text-center');
+                div.style.opacity = 0.8;
+                div.innerHTML = "<br>From : "+from+"<br>Time : "+time+"<br>Message : "+messagee+"<br><br>";
+                document.getElementById('add-content').appendChild(div);
+                var br = document.createElement('br');
+                document.getElementById('add-content').appendChild(br);
+
+
+            });
+
+        }
+
+    </script>
+</div>
+</body>
+</html>

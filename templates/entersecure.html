@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        .above {
+            z-index: 1;
+
+        }
+        .mask-custom {
+            backdrop-filter: contrast(140%) brightness(100%) saturate(100%) sepia(50%)
+            hue-rotate(0deg) grayscale(0%) invert(0%) blur(0px);
+            mix-blend-mode: lighten;
+            background: rgba(161, 44, 199, 0.31);
+            opacity: 1;
+        }
+        .ts {
+            text-shadow:5px 5px 10px black;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div
+        class="bg-image"
+        style="
+    background-image: url('https://cdn2.vectorstock.com/i/1000x1000/86/81/chat-box-vector-3328681.jpg');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+  "
+>
+    <div class="mask mask-custom"></div>
+  <div class="row">
+
+        <div class="col col-xxl-3 p-xxl-5"></div>
+        <div class="col col-xxl-6 text-center p-xxl-5 bg-transparent ts text-dark fw-bolder text fs-3">Security Layer</div>
+        <div class="col col-xxl-3 p-xxl-5"></div>
+
+
+    </div>
+
+  <div class="row">
+
+    <div class="col col-xxl-3"></div>
+    <div class="col col-xxl-6 bg-dark text-light shadow-lg" style="opacity: 0.8">
+      <br>
+      <div class="text-center fw-bold">Enter the security words in the same order</div>
+      <br><br>
+      <form action="/{{user}}/checksecure" method="post">
+
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w1" placeholder="word1" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w2" placeholder="word2" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w3" placeholder="word3" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w4" placeholder="word4" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w5" placeholder="word5" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w6" placeholder="word6" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w7" placeholder="word7" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w8" placeholder="word8" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w9" placeholder="word9" required></div><br>
+        <div class="col col-12"><input type="text" class="col-12 text-center rounded-3 shadow-lg" name="w10" placeholder="word10" required></div><br><br>
+        <div class="col col-12 justify-content-center text-center"><input type="submit" value="Proceed" class="btn btn-outline-secondary d-inline-flex align-items-center rounded " name="w10" placeholder="word10"></div><br>
+
+
+      </form>
+
+    </div>
+    <div class="col col-xxl-3"></div>
+
+  </div>
+</div>
+</body>
+</html>
